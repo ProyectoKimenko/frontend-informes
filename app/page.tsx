@@ -2,11 +2,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 
-export default function LogIn() {
+export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const _signIn = () => {
+    setLoading(true);
+  }
+
   return (
     <main 
       className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-1"
@@ -31,7 +38,7 @@ export default function LogIn() {
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
             className="border h-10 p-2 focus:outline-lightBlue focus:rounded-none w-full"
-            placeholder="Nombre usuario"
+            placeholder="Nombre de usuario"
           />
           <div
             className="relative w-full"
@@ -58,9 +65,15 @@ export default function LogIn() {
               ¿Olvidaste tu contraseña?
             </Link>
             <button
-              className="bg-lightBlue w-fit px-4 py-1 text-white place-self-end shadow hover:bg-cyan-400"
+              className="flex justify-center bg-lightBlue w-28 px-4 py-1 text-white place-self-end shadow hover:bg-cyan-400"
+              onClick={_signIn}
             >
-              Ingresar
+              {loading
+                ? <CgSpinner 
+                    className="text-2xl animate-spin"
+                  />
+                : "Ingresar"
+              }
             </button>
           </div>
         </div>
