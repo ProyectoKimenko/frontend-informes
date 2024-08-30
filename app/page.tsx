@@ -3,8 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CgSpinner } from "react-icons/cg";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
@@ -12,14 +15,19 @@ export default function SignIn() {
 
   const _signIn = () => {
     setLoading(true);
+    router.push("/dashboard");
+  }
+
+  const _toogleVisibility = () => {
+    setHidePassword(!hidePassword);
   }
 
   return (
-    <main 
+    <div 
       className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-1"
     >
       <div
-        className="flex flex-col sm:flex-row justify-between w-full sm:w-2/3 2xl:w-1/2 bg-white p-5 sm:py-16 sm:px-10 shadow-sm"
+        className="flex flex-col sm:flex-row justify-between w-full sm:w-2/3 2xl:w-1/2 bg-white p-5 sm:py-16 sm:px-10 shadow-sm rounded"
       >
         <div
           className="flex flex-col w-1/3"
@@ -37,16 +45,16 @@ export default function SignIn() {
           <input
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
-            className="border h-10 p-2 focus:outline-lightBlue focus:rounded-none w-full"
+            className="border h-10 p-2 outline outline-1 outline-transparent focus:outline-lightBlue focus:rounded-none w-full text-sm"
             placeholder="Nombre de usuario"
           />
           <div
-            className="relative w-full"
+            className="relative flex items-center w-full mt-3 "
           >
             <input
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              className="border h-10 p-2 focus:outline-lightBlue focus:rounded-none mt-3 w-full"
+              className="border h-10 p-2 outline outline-1 outline-transparent focus:outline-lightBlue focus:rounded-none w-full text-sm"
               placeholder="Contraseña"
               type={
                 hidePassword
@@ -54,6 +62,15 @@ export default function SignIn() {
                   : "text"
               }
             />
+            <div
+              className="absolute flex items-center right-2 text-lg p-1.5 rounded-full hover:bg-gray-100 hover:cursor-pointer"
+              onClick={_toogleVisibility}
+            >
+              {hidePassword
+                ? <IoEyeOffOutline />
+                : <IoEyeOutline />
+              }
+            </div>
           </div>
           <div
             className="flex items-center justify-between mt-3 w-full"
@@ -78,6 +95,6 @@ export default function SignIn() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
