@@ -7,13 +7,18 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>){
   return (
-    <div className="flex bg-gray-100 h-svh p-5">
-      <NavbarMenu
-      />
-      <div className="flex bg-white p-2 w-full rounded">
-        <main>
-          {children}
-        </main>
+    <div className="flex flex-col bg-gray-100 h-svh text-gray-600">
+      <Header/>
+      <div
+        className="flex w-full h-full"
+      >
+        <NavbarMenu
+        />
+        <div className="flex p-3 w-full rounded">
+          <main className="w-full">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   )
